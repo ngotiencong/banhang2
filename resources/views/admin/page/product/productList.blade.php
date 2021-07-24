@@ -38,18 +38,31 @@
         <div class="card-body p-0">
           <table class="table table-striped projects">
               <thead>
+                 {{-- name	slug	price	sale_price	desc	content	img	status	category_id --}}
                   <tr>
                       <th style="width: 10%">
                           STT
                       </th>
-                      <th style="width: 35%">
-                          Tên danh mục
+                      <th style="width: 15%">
+                          Tên sản phẩm
                       </th>
-                      <th style="width: 35%">
-                          từ khóa
+                       <th style="width: 15%">
+                          Giá
+                      </th>
+                      <th style="width: 15%">
+                          Giá sale
+                      </th>
+                       <th style="width: 15%">
+                          Ảnh
+                      </th>
+                      <th style="width: 10%">
+                          Trạng thái
+                      </th>
+                      <th style="width: 10%">
+                          Danh mục
                       </th>
                       
-                      <th style="width: 20%">
+                      <th style="width: 10%">
                         
                       </th>
                   </tr>
@@ -60,7 +73,7 @@
                       $i = 1 ;
                   @endphp 
                   
-                  @foreach ($cats as $cats)
+                  @foreach ($prod as $prod)
                     
 
                   <tr>
@@ -69,19 +82,39 @@
                       </td>
                       <td>
                           
-                              {{$cats->name}}
+                              {{$prod->name}}
                          
                          
                       </td>
                       <td>
-                          {{$cats->slug}}
+                          {{$prod->price}}
+                      </td>
+                       <td>
+                          {{$prod->sale_price}}
+                      </td>
+                       <td>
+                          <img style="max-width:300px;max-height:100px;" src="{{config('app.url').'/userfiles/productImg/'.$prod->img}}" alt="">
+                          
+                      </td>
+                       <td>
+                         @if ($prod->status == 0)
+                           Ẩn
+                         @else
+                           Hiện
+                         @endif
+                      </td>
+                       <td>
+                          @php
+                            $cats = DB::table('category')->find($prod->category_id);
+                            echo $cats->name;
+                          @endphp
                       </td>
 
                       <td class="project-actions text-right">
-                        <form action="{{route('category.destroy',$cats->id)}}" method="POST">
+                        <form action="{{route('product.destroy',$prod->id)}}" method="POST">
                             @method('DELETE')
                              @csrf
-                          <a class="btn btn-info btn-sm" href="{{route('category.edit',$cats->id)}}">
+                          <a class="btn btn-info btn-sm" href="{{route('product.edit',$prod->id)}}">
                               <i class="fas fa-pencil-alt">
                               </i>
                               Sửa

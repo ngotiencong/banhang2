@@ -178,7 +178,32 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-         
+          
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-copy"></i>
+              <p>
+                Quản lý người dùng
+                <i class="fas fa-angle-left right"></i>
+                
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ route('users.create')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Thêm người dùng</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('users.index')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Danh sách người dùng</p>
+                </a>
+              </li>
+             
+            </ul>
+          </li>
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-copy"></i>
@@ -224,6 +249,56 @@
                 <a href="{{ route('product.index')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Danh sách sản phẩm</p>
+                </a>
+              </li>
+             
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-copy"></i>
+              <p>
+                Quản lý đơn hàng
+                <i class="fas fa-angle-left right"></i>
+                
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ route('product.create')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Thêm đơn hàng</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('product.index')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Danh sách đơn hàng</p>
+                </a>
+              </li>
+             
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-copy"></i>
+              <p>
+                Tài khoản quản trị
+                <i class="fas fa-angle-left right"></i>
+                
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ route('users.create')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Thêm tài khoản</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('users.index')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Danh sách tài khoản</p>
                 </a>
               </li>
              

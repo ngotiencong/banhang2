@@ -13,6 +13,8 @@
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{asset('public/admin/dist/css/adminlte.min.css')}}">
+
+  <link rel="stylesheet" href="{{asset('public/admin/dist/css/css2.css')}}">
   <script src="{{asset('public/admin/dist/ckeditor/ckeditor.js')}}"></script>
   <script src="{{asset('public/admin/dist/ckfinder/ckfinder.js')}}"></script>
 </head>

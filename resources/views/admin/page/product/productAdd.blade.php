@@ -104,19 +104,30 @@
                     </div>  
                 </div>
               
-              @if(session()->has('mess'))
-                    <div class="alert alert-success">
-                        {{ session()->get('mess') }}
-                    </div>
+            @if(session()->has('mess'))
+              <div class="col-md-10 mx-auto alert alert-success alert-block">
+                <button type="button" class="close" data-dismiss="alert">×</button>	
+                <strong>{{ session()->get('mess') }}</strong>
+              </div>
+        
                 @endif
+                 @if ($errors->any())
+                <div class="col-md-10 mx-auto alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+              @endif
             </div>
 
             <!-- /.card-body -->
           </div>
           <!-- /.card -->
         </div>
-        
       </div>
+
       <div class="row">
         <div class="col-md-12">
           <a href="{{route('ckfinder_browser')}}"></a>

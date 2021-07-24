@@ -21,7 +21,7 @@ class CategoryController extends Controller
         'shortlist' => DB::table('category')->paginate(4)
         );
        
-        return view('admin.page.categoryList',[
+        return view('admin.page.category.categoryList',[
             'cats' => $cats,
             'data' => $view_data
         ]);
@@ -34,7 +34,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('admin.page.categoryAdd');
+        return view('admin.page.category.categoryAdd');
     }
 
     /**
@@ -46,6 +46,17 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         //
+        $this->validate($request,[
+            'name' => 'required|max:255|unique:category',
+            'slug' => 'required|regex:/^\S*$/u|unique:category'
+        ],[
+            'name.required' => 'Tên danh mục không được để trống',
+            'name.unique' => 'Tên danh mục không được trùng',
+            'name.max' => 'Tên danh mục vướt quá số lượng cho phép',
+            'slug.required' => 'Từ khóa danh mục không được để trống',
+            'slug.unique' => 'Từ khóa danh mục không được trùng',
+            'slug.regex' => 'Từ khóa không được chứa kí tự space'
+        ]);
         $category = new category();
         $category->name = $request->input('name');
         $category->slug = $request->input('slug');
@@ -75,7 +86,7 @@ class CategoryController extends Controller
     {
         $category = new category();
         
-        return view('admin.page.categoryEdit',['category' => $category->find($id)]);
+        return view('admin.page.category.categoryEdit',['category' => $category->find($id)]);
     }
 
     /**
@@ -87,7 +98,19 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
+       $this->validate($request,[
+            'name' => 'required|max:255|unique:category',
+            'slug' => 'required|regex:/^\S*$/u|unique:category'
+        ],[
+            'name.required' => 'Tên danh mục không được để trống',
+            'name.unique' => 'Tên danh mục không được trùng',
+            'name.max' => 'Tên danh mục vướt quá số lượng cho phép',
+            'slug.required' => 'Từ khóa danh mục không được để trống',
+            'slug.unique' => 'Từ khóa danh mục không được trùng',
+            'slug.regex' => 'Từ khóa không được chứa kí tự space'
+        ]);
         //
+        
         $category = new category();
        
         $category->where('id',$id)->update(
@@ -96,9 +119,7 @@ class CategoryController extends Controller
                 'slug' => $request->input('slug')
             ]
             );
-        return view('admin.page.categoryList',[
-            'cats' => DB::table('category')->paginate(7)
-        ]);
+        return view('admin.page.category.categoryEdit',$id)->with('mess','Sửa danh mục thành công');
     }
 
     /**
