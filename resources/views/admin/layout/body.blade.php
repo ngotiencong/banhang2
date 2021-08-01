@@ -71,7 +71,7 @@
               <img src="{{asset('public/admin/dist/img/user8-128x128.jpg')}}" alt="User Avatar" class="img-size-50 img-circle mr-3">
               <div class="media-body">
                 <h3 class="dropdown-item-title">
-                  John Pierce
+                  {{Auth::user()->username}}
                   <span class="float-right text-sm text-muted"><i class="fas fa-star"></i></span>
                 </h3>
                 <p class="text-sm">I got your message bro</p>
@@ -128,7 +128,7 @@
         </div>
       </li>
       <li class="nav-item">
-        <a class="nav-link" data-widget="fullscreen" href="#" role="button">
+        <a class="nav-link" href="{{route('logout')}}" role="button">
           <i class="fas fa-expand-arrows-alt"></i>
         </a>
       </li>
@@ -157,7 +157,7 @@
           <img src="{{asset('public/admin/dist/img/user2-160x160.jpg')}}" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">Alexander Pierce</a>
+          <a href="#" class="d-block">{{Auth::user()->username}}</a>
         </div>
       </div>
 
@@ -290,13 +290,13 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{ route('users.create')}}" class="nav-link">
+                <a href="{{ route('account.create')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Thêm tài khoản</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{ route('users.index')}}" class="nav-link">
+                <a href="{{ route('account.index')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Danh sách tài khoản</p>
                 </a>

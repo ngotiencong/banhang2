@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\account;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class AccountController extends Controller
 {
@@ -15,6 +17,13 @@ class AccountController extends Controller
     public function index()
     {
         //
+        $account = account::paginate(4);
+        
+        $data = array(
+            'shortlist' => $account
+        );
+
+        return view('admin.page.adminUser.adminUserList',['account' => $account, 'data' => $data]);
     }
 
     /**
@@ -25,6 +34,7 @@ class AccountController extends Controller
     public function create()
     {
         //
+        return view('admin.page.adminUser.adminUserAdd');
     }
 
     /**
@@ -36,7 +46,13 @@ class AccountController extends Controller
     public function store(Request $request)
     {
         //
+        $account = new account();
+        $account->username = $request->username;
+        $account->password = Hash::make($request->password);
+        $account->save();
+        return redirect()->route('account.create')->with('Bạn đã tạo tài khoản thành công');
     }
+
 
     /**
      * Display the specified resource.
@@ -78,8 +94,10 @@ class AccountController extends Controller
      * @param  \App\Models\account  $account
      * @return \Illuminate\Http\Response
      */
-    public function destroy(account $account)
+    public function destroy($id)
     {
         //
+        account::find($id)->delete();
+        return redirect()->back();
     }
 }

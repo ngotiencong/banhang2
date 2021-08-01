@@ -1,11 +1,14 @@
 <?php
 
+use Aws\Middleware;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\CustomerController;
-use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\UsersController;
+use App\Http\Controllers\AccountController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductsController;
-use App\Http\Controllers\UsersController;
 use CKSource\CKFinderBridge\Controller\CKFinderController;
 
 
@@ -19,19 +22,19 @@ use CKSource\CKFinderBridge\Controller\CKFinderController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::group(['prefix' => 'admin'],function () {
-    Route::get('/', function () {
-    return view('admin.page.dash');
-    
-    Route::get('/login', [LoginController::class, 'index'])->middleware('auth');
-    
-});
 
+Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::group(['prefix' => 'admin','middleware' => 'auth'],function () {
+    Route::get('/', [LoginController::class, 'logged'])->name('admin');
+    Route::resource('/product', ProductsController::class, ['names' => 'product']);
+    Route::resource('/category', CategoryController::class, ['names' => 'category']);
+    Route::resource('/users', UsersController::class, ['names' => 'users']);
+    Route::resource('/account', AccountController::class, ['names' => 'account']);
+    Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 });
+Route::get('admin/login', [LoginController::class, 'index']);
+Route::post('admin/login', [LoginController::class, 'login'])->name('login');
 
-Route::resource('product', ProductsController::class,['names' => 'product']);
-Route::resource('category', CategoryController::class,['names' => 'category']);
-Route::resource('users', UsersController::class,['names' => 'users']);
 
 //-----------------------------------------------------------
 
@@ -40,5 +43,4 @@ Route::any('/ckfinder/connector',[CKFinderController::class, 'requestAction'])
 
 Route::any('/ckfinder/browser', [CKFinderController::class, 'browserAction'])
     ->name('ckfinder_browser');
-
 

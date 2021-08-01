@@ -1,4 +1,7 @@
-<!-- Header Section End -->
+@extends('web.layout.body')
+@section('content')
+    
+
 
 <!-- Hero Section Begin -->
 <section class="hero">
@@ -524,6 +527,8 @@
         </div>
     </div>
 </section>
+
+@endsection
 <!-- Blog Section End -->
 
 <!-- Footer Section Begin -->

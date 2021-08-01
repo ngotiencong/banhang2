@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
-use App\Models\customer;
-use Auth;
+use App\Models\account;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -36,24 +36,37 @@ class LoginController extends Controller
      */
     public function login(Request $request)
     {
-        //
-       
-        $this->validate($request,[
-            'email' => 'required|email',
-            'password' => 'required|password'
-        ],[
-            'email.email' => 'email khong dung dinh dang',
-            'email.required' => 'email khong duoc de trong',
-            'password.email' => 'password khong dung dinh dang',
-            'password.required' => 'password khong duoc de trong'
-        ]);
-        if(Auth::attempt($request->only('email','password'),flase)){
-            return  redirect('admin');
-        }else{
-            return redirect('login');
-        }
-        dd($request);
+        
 
+        $this->validate($request,[
+            'username' => 'required',
+            'password' =>'required',
+        ],[
+
+            'username.required' => 'email không được để trống',
+            'password.required' => 'password không được để trống'
+        ]);
+        $credentials = $request->only('username', 'password');
+        if (Auth::attempt($credentials)) {
+
+            return redirect()->intended('admin');
+        }else{
+            return redirect()->back();
+        }
+        
+
+    }
+    public function logged()
+    {
+        //
+        return view('admin.page.dash');
+    }
+
+    public function logout()
+    {
+        //
+        Auth::logout();
+        return redirect()->route('login');
     }
 
   

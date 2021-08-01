@@ -14,7 +14,7 @@
                 <form action="" method="post">
                     @csrf
                     <div class="input-group mb-3">
-                        <input type="email" name='email' class="form-control" placeholder="Email">
+                        <input type="text" name='username' class="form-control" placeholder="username">
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-envelope"></span>
@@ -46,7 +46,22 @@
                     </div>
                 </form>
 
-
+                @if(session()->has('mess'))
+                <div class="col-md-10 mx-auto alert alert-success alert-block">
+                    <button type="button" class="close" data-dismiss="alert">×</button>
+                    <strong>{{ session()->get('mess') }}</strong>
+                </div>
+                
+                @endif
+                @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+                @endif
             </div>
             <!-- /.login-card-body -->
         </div>
