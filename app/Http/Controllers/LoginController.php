@@ -47,7 +47,7 @@ class LoginController extends Controller
             'password.required' => 'password không được để trống'
         ]);
         $credentials = $request->only('username', 'password');
-        if (Auth::attempt($credentials)) {
+        if (Auth::attempt($credentials,$request->remember)) {
 
             return redirect()->intended('admin');
         }else{

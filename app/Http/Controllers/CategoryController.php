@@ -15,10 +15,10 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $cats = DB::table('category')->paginate(4);
+        $cats = category::paginate(4);
         $view_data = array
         (
-        'shortlist' => DB::table('category')->paginate(4)
+        'shortlist' => category::paginate(4)
         );
        
         return view('admin.page.category.categoryList',[
@@ -46,20 +46,39 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         //
+    
         $this->validate($request,[
             'name' => 'required|max:255|unique:category',
-            'slug' => 'required|regex:/^\S*$/u|unique:category'
+            'slug' => 'required|regex:/^\S*$/u|unique:category',
+            'img' => 'required|mimes:jpg,jpeg,png,gif|max:2048',
+            
         ],[
             'name.required' => 'Tên danh mục không được để trống',
             'name.unique' => 'Tên danh mục không được trùng',
             'name.max' => 'Tên danh mục vướt quá số lượng cho phép',
             'slug.required' => 'Từ khóa danh mục không được để trống',
             'slug.unique' => 'Từ khóa danh mục không được trùng',
-            'slug.regex' => 'Từ khóa không được chứa kí tự space'
+            'slug.regex' => 'Từ khóa không được chứa kí tự space',
+            'img.mimes' => 'Chỉ chấp nhận hình ảnh với đuôi .jpg .jpeg .png .gif',
+            'img.max' => 'Hình ảnh giới hạn dung lượng không quá 2M',
+            'img.required' => 'Hình ảnh không được để trống',
         ]);
+        $getImg = '';
+     
+	if($request->hasFile('img')){
+		
+		
+		
+		$img = $request->file('img');
+		$getImg = time().'_'.$img->getClientOriginalName();
+       
+		$destinationPath = public_path('userfiles/productImg');
+		$img->move($destinationPath, $getImg);
+    }
         $category = new category();
-        $category->name = $request->input('name');
-        $category->slug = $request->input('slug');
+        $category->name = $request->name;
+        $category->slug = $request->slug;
+        $category->img = $getImg;
         $category->save();
         return redirect()->route('category.create')->with('mess','Tạo danh mục thành công');
     }
@@ -84,9 +103,8 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        $category = new category();
-        
-        return view('admin.page.category.categoryEdit',['category' => $category->find($id)]);
+        $category = category::find($id);
+        return view('admin.page.category.categoryEdit',['category' => $category]);
     }
 
     /**
@@ -98,9 +116,11 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $category = category::find($id);
        $this->validate($request,[
-            'name' => 'required|max:255|unique:category',
-            'slug' => 'required|regex:/^\S*$/u|unique:category'
+            'name' => 'required|max:255',
+            'slug' => 'required|regex:/^\S*$/u',
+            'img' => 'mimes:jpg,jpeg,png,gif|max:2048',
         ],[
             'name.required' => 'Tên danh mục không được để trống',
             'name.unique' => 'Tên danh mục không được trùng',
@@ -110,16 +130,26 @@ class CategoryController extends Controller
             'slug.regex' => 'Từ khóa không được chứa kí tự space'
         ]);
         //
-        
-        $category = new category();
+        $getImg = '';
+
+        if ($request->hasFile('img')) {
+
+
+
+            $img = $request->file('img');
+            $getImg = time() . '_' . $img->getClientOriginalName();
+
+            $destinationPath = public_path('userfiles/productImg');
+            $img->move($destinationPath, $getImg);
+            $category->img = $getImg;
+        }
+   
+        $category->name = $request->name;
+        $category->slug = $request->slug;
        
-        $category->where('id',$id)->update(
-            [
-                'name' => $request->input('name'),
-                'slug' => $request->input('slug')
-            ]
-            );
-        return view('admin.page.category.categoryEdit',$id)->with('mess','Sửa danh mục thành công');
+        $category->save();
+        return redirect()->route('category.edit',$id)->with('mess', 'Sửa danh mục thành công');
+       
     }
 
     /**

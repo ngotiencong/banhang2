@@ -1,5 +1,8 @@
 @extends('admin.layout.body')
 @section('content')
+@php
+  $i = (Request::get('page')-1)*4 +1 ;
+@endphp
 
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -42,26 +45,27 @@
                       <th style="width: 10%">
                           STT
                       </th>
-                      <th style="width: 35%">
+                      <th style="width: 25%">
                           Tên danh mục
                       </th>
-                      <th style="width: 35%">
+                      <th style="width: 25%">
                           từ khóa
                       </th>
+                      <th style="width: 25%">
+                        Ảnh
+                      </th>
                       
-                      <th style="width: 20%">
+                      <th style="width: 15%">
                         
                       </th>
                   </tr>
               </thead>
               <tbody>
                 
-                  @php
-                      $i = 1 ;
-                  @endphp 
+                  
                   
                   @foreach ($cats as $cats)
-                    
+                  
 
                   <tr>
                       <td>
@@ -76,7 +80,10 @@
                       <td>
                           {{$cats->slug}}
                       </td>
-
+                      <td>
+                        <img style="max-width:300px;max-height:100px;" src="{{config('app.url').'/userfiles/productImg/'.$cats->img}}" alt="">
+                      
+                      </td>
                       <td class="project-actions text-right">
                         <form action="{{route('category.destroy',$cats->id)}}" method="POST">
                             @method('DELETE')

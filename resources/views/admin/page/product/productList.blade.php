@@ -1,5 +1,8 @@
 @extends('admin.layout.body')
 @section('content')
+@php
+$i = (Request::get('page')-1)*4 +1 ;
+@endphp
 
     <!-- Content Header (Page header) -->
     <section class="content-header">

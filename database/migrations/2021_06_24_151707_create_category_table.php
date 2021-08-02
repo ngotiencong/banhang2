@@ -17,7 +17,7 @@ class CreateCategoryTable extends Migration
             $table->id();
             $table->string('name', 255)->unique();
             $table->string('slug',255)->unique();
-            $table->string('image', 255)->nullable()->unique();
+            $table->string('img', 255)->nullable()->unique();
             $table->timestamps();
         });
     }

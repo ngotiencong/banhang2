@@ -11,7 +11,8 @@ class category extends Model
     protected $table = 'category';
      protected $fillable = [
       'name',
-      'slug'
+      'slug',
+      'img'
     ];
 
     /**

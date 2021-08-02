@@ -19,7 +19,7 @@
 
     <!-- Main content -->
     <section class="content">
-         <form action="{{ route('category.store')}}" method="post" >
+         <form action="{{ route('category.store')}}" method="post" enctype="multipart/form-data" >
             @csrf
       <div class="row">
         <div class="col-md-12">
@@ -42,6 +42,10 @@
                <div class="form-group">
                 <label for="inputName">Từ khóa</label>
                 <input name="slug" type="text" id="slug" class="form-control">
+              </div>
+              <div class="form-group">
+                <label for="inputName">File</label>
+                <input name="img" type="file" id="img" class="form-control">
               </div>
               @if(session()->has('mess'))
               <div class="col-md-10 mx-auto alert alert-success alert-block">
