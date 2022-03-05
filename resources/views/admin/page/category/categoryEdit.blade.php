@@ -48,7 +48,7 @@
             <div class="form-group">
               <label for="inputName">File</label>
               <img style="max-width:300px;max-height:100px;"
-                src="{{config('app.url').'/userfiles/productImg/'.$category->img}}" alt="">
+                src="{{asset("storage/category_image"."/". $category->img)}}" alt="">
               <input name="img" type="file" id="img" class="form-control">
             </div>
             @if(session()->has('mess'))

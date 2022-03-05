@@ -81,7 +81,7 @@
                           {{$cats->slug}}
                       </td>
                       <td>
-                        <img style="max-width:300px;max-height:100px;" src="{{config('app.url').'/userfiles/productImg/'.$cats->img}}" alt="">
+                        <img style="max-width:300px;max-height:100px;" src="{{asset("storage/category_image"."/". $cats->img)}}" alt="">
                       
                       </td>
                       <td class="project-actions text-right">

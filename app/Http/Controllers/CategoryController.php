@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\category;
-use DB; 
+use App\Models\products;
+use DB;
+use Illuminate\Support\Facades\Storage;
 
 class CategoryController extends Controller
 {
@@ -63,22 +65,19 @@ class CategoryController extends Controller
             'img.max' => 'Hình ảnh giới hạn dung lượng không quá 2M',
             'img.required' => 'Hình ảnh không được để trống',
         ]);
-        $getImg = '';
+        $ImageName = '';
      
 	if($request->hasFile('img')){
 		
 		
 		
-		$img = $request->file('img');
-		$getImg = time().'_'.$img->getClientOriginalName();
-       
-		$destinationPath = public_path('userfiles/productImg');
-		$img->move($destinationPath, $getImg);
+		$ImageName = $request->file('img')->hashName();
+        $path =  $request->file('img')->storeAs('public/category_image', $ImageName);
     }
         $category = new category();
         $category->name = $request->name;
         $category->slug = $request->slug;
-        $category->img = $getImg;
+        $category->img = $ImageName;
         $category->save();
         return redirect()->route('category.create')->with('mess','Tạo danh mục thành công');
     }
@@ -135,13 +134,10 @@ class CategoryController extends Controller
         if ($request->hasFile('img')) {
 
 
-
-            $img = $request->file('img');
-            $getImg = time() . '_' . $img->getClientOriginalName();
-
-            $destinationPath = public_path('userfiles/productImg');
-            $img->move($destinationPath, $getImg);
-            $category->img = $getImg;
+            Storage::delete('public/product_image/' . category::find($id)->img);
+            $ImageName = $request->file('img')->hashName();
+            $path =  $request->file('img')->storeAs('public/category_image', $ImageName);
+            $category->img = $ImageName;
         }
    
         $category->name = $request->name;
@@ -160,6 +156,7 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
+        Storage::delete('public/product_image/' . category::find($id)->img);
         category::find($id)->delete();
         return redirect()->back();
     }

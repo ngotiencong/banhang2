@@ -15,6 +15,7 @@
   <link rel="stylesheet" href="{{asset('public/admin/dist/css/adminlte.min.css')}}">
 
   <link rel="stylesheet" href="{{asset('public/admin/dist/css/css2.css')}}">
+  <script src="{{asset('public/admin/plugins/jquery/jquery.min.js')}}"></script>
   <script src="{{asset('public/admin/dist/ckeditor/ckeditor.js')}}"></script>
   <script src="{{asset('public/admin/dist/ckfinder/ckfinder.js')}}"></script>
 </head>
@@ -30,7 +31,7 @@
 <body class="hold-transition sidebar-mini">
 @yield('body')
 <!-- jQuery -->
-<script src="{{asset('public/admin/plugins/jquery/jquery.min.js')}}"></script>
+
 <!-- Bootstrap -->
 <script src="{{asset('public/admin/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 <!-- AdminLTE -->
@@ -42,6 +43,20 @@
 <script src="{{asset('public/admin/dist/js/demo.js')}}"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="{{asset('public/admin/dist/js/pages/dashboard3.js')}}"></script>
+<script src="{{asset('public/admin/dist/js/custom.js')}}"></script>
 <script src="{{asset('public/admin/dist/js/slug.js')}}"></script>
+<script>
+  document.getElementById("files").onchange = function () {
+  var reader = new FileReader();
+  
+  reader.onload = function (e) {
+  // get loaded data and render thumbnail.
+  document.getElementById("image").src = e.target.result;
+  };
+  
+  // read the image file as a data URL.
+  reader.readAsDataURL(this.files[0]);
+  };
+</script>
 </body>
 </html>

@@ -15,10 +15,18 @@
         </div>
         <div class="humberger__menu__cart">
             <ul>
-                <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
-                <li><a href="#"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
+                <li><a href="#"><i class="fa sfa-heart"></i> <span>1</span></a></li>
+                <li><a href="{{route('cart')}}"><i class="fa fa-shopping-bag"></i> <span class="cart-count">
+                            @if(session()->get('cart'))
+                            {{count(session()->get('cart'))}}
+                            @else
+                            0
+                            @endif
+                        </span></a></li>
             </ul>
-            <div class="header__cart__price">item: <span>$150.00</span></div>
+            <div class="header__cart__price">item: <span class="cart-total">
+                    {{ session()->get('cart')['total'] ?? "0"}}
+                </span></div>
         </div>
         <div class="humberger__menu__widget">
             <div class="header__top__right__language">
@@ -36,18 +44,17 @@
         </div>
         <nav class="humberger__menu__nav mobile-menu">
             <ul>
-                <li class="active"><a href="./index.html">Home</a></li>
-                <li><a href="./shop-grid.html">Shop</a></li>
+                <li class="active"><a href="{{route('home')}}">Home</a></li>
+                <li><a href="{{route('home.shop')}}">Shop</a></li>
                 <li><a href="#">Pages</a>
                     <ul class="header__menu__dropdown">
-                        <li><a href="./shop-details.html">Shop Details</a></li>
-                        <li><a href="./shoping-cart.html">Shoping Cart</a></li>
-                        <li><a href="./checkout.html">Check Out</a></li>
+                        <li><a href="{{route('cart')}}">Shoping Cart</a></li>
+                        <li><a href="{{route('checkout')}}">Check Out</a></li>
                         <li><a href="./blog-details.html">Blog Details</a></li>
                     </ul>
                 </li>
                 <li><a href="./blog.html">Blog</a></li>
-                <li><a href="./contact.html">Contact</a></li>
+                <li><a href="{{route('home.contact')}}">Contact</a></li>
             </ul>
         </nav>
         <div id="mobile-menu-wrap"></div>
@@ -57,6 +64,7 @@
             <a href="#"><i class="fa fa-linkedin"></i></a>
             <a href="#"><i class="fa fa-pinterest-p"></i></a>
         </div>
+        @csrf
         <div class="humberger__menu__contact">
             <ul>
                 <li><i class="fa fa-envelope"></i> hello@colorlib.com</li>
@@ -104,43 +112,53 @@
                 </div>
             </div>
         </div>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-3">
-                    <div class="header__logo">
-                        <a href="./index.html"><img src="img/logo.png" alt=""></a>
+        <div style="" class="header__bottom">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-3">
+                        <div class="header__logo">
+                            <a href="{{route('home')}}"><img src="img/logo.png" alt=""></a>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <nav class="header__menu">
+                            <ul>
+                                <li class="active"><a href="{{route('home')}}">Home</a></li>
+                                <li><a href="{{route('home.shop')}}">Shop</a></li>
+                                <li><a href="#">Pages</a>
+                                    <ul class="header__menu__dropdown">
+
+                                        <li><a href="{{route('cart')}}">Shoping Cart</a></li>
+                                        <li><a href="{{route('checkout')}}">Check Out</a></li>
+                                        <li><a href="{{route('cart')}}">Blog Details</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="./blog.html">Blog</a></li>
+                                <li><a href="{{route('home.contact')}}">Contact</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="header__cart">
+                            <ul>
+                                <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
+                                <li><a href="{{route('cart')}}"><i class="fa fa-shopping-bag"></i> <span
+                                            class="cart-count">
+                                            @if(session()->get('cart'))
+                                            {{count(session()->get('cart'))}}
+                                            @else
+                                            0
+                                            @endif
+                                        </span></a></li>
+                            </ul>
+                            <div class="header__cart__price">item: <span
+                                    class="cart-total">{{ session()->get('total') ?? "0"}}</span></div>
+                        </div>
                     </div>
                 </div>
-                <div class="col-lg-6">
-                    <nav class="header__menu">
-                        <ul>
-                            <li class="active"><a href="./index.html">Home</a></li>
-                            <li><a href="./shop-grid.html">Shop</a></li>
-                            <li><a href="#">Pages</a>
-                                <ul class="header__menu__dropdown">
-                                    <li><a href="./shop-details.html">Shop Details</a></li>
-                                    <li><a href="./shoping-cart.html">Shoping Cart</a></li>
-                                    <li><a href="./checkout.html">Check Out</a></li>
-                                    <li><a href="./blog-details.html">Blog Details</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="./blog.html">Blog</a></li>
-                            <li><a href="./contact.html">Contact</a></li>
-                        </ul>
-                    </nav>
+                <div class="humberger__open opened">
+                    <i class="fa fa-bars"></i>
                 </div>
-                <div class="col-lg-3">
-                    <div class="header__cart">
-                        <ul>
-                            <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
-                            <li><a href="#"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
-                        </ul>
-                        <div class="header__cart__price">item: <span>$150.00</span></div>
-                    </div>
-                </div>
-            </div>
-            <div class="humberger__open">
-                <i class="fa fa-bars"></i>
             </div>
         </div>
     </header>

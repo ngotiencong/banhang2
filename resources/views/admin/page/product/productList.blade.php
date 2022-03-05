@@ -96,7 +96,7 @@ $i = (Request::get('page')-1)*4 +1 ;
                           {{$prod->sale_price}}
                       </td>
                        <td>
-                          <img style="max-width:300px;max-height:100px;" src="{{config('app.url').'/userfiles/productImg/'.$prod->img}}" alt="">
+                          <img style="max-width:300px;max-height:100px;" src="{{asset("storage/product_image"."/". $prod->img)}}" alt="">
                           
                       </td>
                        <td>
@@ -107,10 +107,7 @@ $i = (Request::get('page')-1)*4 +1 ;
                          @endif
                       </td>
                        <td>
-                          @php
-                            $cats = DB::table('category')->find($prod->category_id);
-                            echo $cats->name;
-                          @endphp
+                         {{$prod->category->name}}
                       </td>
 
                       <td class="project-actions text-right">

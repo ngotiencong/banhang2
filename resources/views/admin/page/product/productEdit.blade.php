@@ -76,7 +76,7 @@
                       <div class="form-group">
                     <label for="exampleInputFile">Thêm ảnh</label>
                     <div class="input-group">
-                      <img style="max-width:300px;max-height:100px;" src="{{config('app.url').'/userfiles/productImg/'.$product->img}}" alt="">
+                      <img style="max-width:300px;max-height:100px;" src="{{asset("storage/product_image"."/". $product->img)}}" alt="">
                       <div class="custom-file">
                         <input type="file" name="img" class="" id="img">
                         

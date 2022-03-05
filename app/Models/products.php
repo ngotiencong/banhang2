@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\category;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class products extends Model
 {
@@ -24,6 +25,10 @@ class products extends Model
      *
     
      */
+  public function category()
+  {
+    return $this->hasOne(category::class,'id','category_id');
+  }
     protected $hidden = [
        'created_at',
        'updated_at' 
