@@ -2,15 +2,16 @@
 
 use Aws\Middleware;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\LoginController;
-use App\Http\Controllers\OrderController;
-use App\Http\Controllers\UsersController;
-use App\Http\Controllers\BannerController;
-use App\Http\Controllers\AccountController;
-use App\Http\Controllers\CartController;
-use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\ProductsController;
+use App\Http\Controllers\Web\HomeController;
+use App\Http\Controllers\Admin\LoginController;
+use App\Http\Controllers\Admin\OrderController;
+use App\Http\Controllers\Admin\UsersController;
+use App\Http\Controllers\Admin\BannerController;
+use App\Http\Controllers\Admin\AccountController;
+use App\Http\Controllers\Web\CartController;
+use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\ProductsController;
+use App\Http\Controllers\Web\CheckoutController;
 use CKSource\CKFinderBridge\Controller\CKFinderController;
 use Illuminate\Support\Facades\Route;
 
@@ -31,8 +32,8 @@ Route::get('/shop', [HomeController::class, 'shop'])->name('home.shop');
 Route::get('/contact', [HomeController::class, 'contact'])->name('home.contact');
 Route::get('/product/{id}', [HomeController::class, 'show'])->name('home.show');
 //-----------------------------------------------------------------------------
-Route::get('/checkout', [OrderController::class, 'index'])->name('checkout');
-Route::get('/checkout', [OrderController::class, 'index'])->name('checkout');
+Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout');
+Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout');
 //==============================================================================
 Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::get('/', [LoginController::class, 'logged'])->name('admin');
@@ -42,6 +43,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::resource('/users', UsersController::class, ['names' => 'users']);
     Route::resource('/account', AccountController::class, ['names' => 'account']);
     Route::resource('/banner', BannerController::class, ['names' => 'banner']);
+    Route::resource('/order', OrderController::class, ['names' => 'order']);
     
 });
 Route::get('admin/login', [LoginController::class, 'index']);

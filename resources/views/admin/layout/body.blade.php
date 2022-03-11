@@ -266,7 +266,7 @@
             </ul>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="{{ route('order.index')}}" class="nav-link">
               <i class="nav-icon fas fa-copy"></i>
               <p>
                 Quản lý đơn hàng
@@ -274,21 +274,6 @@
 
               </p>
             </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="{{ route('product.create')}}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Thêm đơn hàng</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{ route('product.index')}}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Danh sách đơn hàng</p>
-                </a>
-              </li>
-
-            </ul>
           </li>
           <li class="nav-item">
             <a href="#" class="nav-link">
@@ -361,7 +346,6 @@
     <!-- Control sidebar content goes here -->
   </aside>
   <!-- /.control-sidebar -->
-
   <!-- Main Footer -->
   <footer class="main-footer">
     <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong>
