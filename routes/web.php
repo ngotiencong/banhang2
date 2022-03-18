@@ -2,7 +2,7 @@
 
 use Aws\Middleware;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\Web\HomeController;
+
 use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\UsersController;
@@ -12,6 +12,7 @@ use App\Http\Controllers\Web\CartController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ProductsController;
 use App\Http\Controllers\Web\CheckoutController;
+use App\Http\Controllers\Web\homeController;
 use CKSource\CKFinderBridge\Controller\CKFinderController;
 use Illuminate\Support\Facades\Route;
 
@@ -43,8 +44,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::resource('/users', UsersController::class, ['names' => 'users']);
     Route::resource('/account', AccountController::class, ['names' => 'account']);
     Route::resource('/banner', BannerController::class, ['names' => 'banner']);
-    Route::resource('/order', OrderController::class, ['names' => 'order']);
-    
+    Route::resource('/order', OrderController::class, ['names' => 'order']);    
 });
 Route::get('admin/login', [LoginController::class, 'index']);
 Route::post('admin/login', [LoginController::class, 'login'])->name('login');

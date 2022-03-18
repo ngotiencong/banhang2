@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\web;
 
+use App\Http\Controllers\Controller;
 use App\Models\category;
 use App\Models\products;
 use Illuminate\Http\Request;
 
-class HomeController extends Controller
+class homeController extends Controller
 {
-    //
     public function index()
     {
 
